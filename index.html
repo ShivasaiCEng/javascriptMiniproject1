@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>role playing game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+
+        <!-- Stats Bar -->
+        <div class="stats">
+            <span>XP: <strong>0</strong></span>
+            <span>Health: <strong>100</strong></span>
+            <span>Gold: <strong>50</strong></span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button id="Gotovillage">Go to Village</button>
+            <button id="enterforest">Enter Dark Forest</button>
+            <button id="fightdragon">Fight Dragon</button>
+        </div>
+
+        <!-- Story Text -->
+        <div  id="mainstory" class="story">
+            <p>
+                Welcome, Brave Warrior. A mighty dragon has destroyed cities
+                and spread fear across the lands. You are the chosen one
+                destined to save the world.
+                <br><br>
+                You stand in the central village. Where will you go?
+            </p>
+        </div>
+
+        <div id="village" class="story">
+        <p>
+            You enter the peaceful village. People greet you as their hero.
+            A merchant offers you supplies. What will you do next? <button id="talktomerchant">Talk</button> <button id="ignoremerchant">Leave</button>
+        </p>
+
+        <p id="merchantd1">
+            Merchant:Never seen you before here whats your name.<br>
+            You:<input id="playername" placeholder="yourname">
+            <button id="submitName">Enter</button>
+        </p>
+
+        <p id="merchantGreeting"></p>
+        <p id="merchantDialogue"></p>
+
+        <!-- <p id="merchantd2">
+            Merchant:What do you want?<br>
+            You:Supplies!
+        </p>
+
+        <p id="merchantd3">
+ Merchant:100xp or bring me few natural extracts from the forest.<br>
+ You:<button>Okay</button> <button>Ignore</button>
+        </p> -->
+        <p id="MerchantTaskDecision">
+        <button id="merchanttaskaccept">Okay</button> <button id="merchanttaskreject">Ignore</button>
+        </p>
+    </div>
+
+     <div id="forest" class="story">
+        <p>
+            You enter the forest.You get to see a wizard
+             What will you do next?  <button id="Talktowizard">Talk</button> <button id="Ignorewizard">Leave</button>
+        </p>
+
+        <p id="WizDialogueBox">
+
+        </p>
+    </div>
+
+    <div id="dragon" class="story">
+        <p>
+            You enter the castle of the dragon without weapons you may die.
+        </p>
+    </div>
+
+
+<button id="nextbtn">Next</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
