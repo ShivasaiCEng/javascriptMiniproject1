@@ -6,6 +6,7 @@ let dragonstorypart=document.getElementById("dragon");
 let playername="";
 const NxtBtn=document.getElementById("nextbtn");
 NxtBtn.style.display="none";
+let talkmerchantafterforest=document.getElementById("Talktomerchantafterforesttask");
 
 let villagebtn=document.getElementById("Gotovillage");
 villagebtn.addEventListener("click",function(){
@@ -14,6 +15,7 @@ villagepart.style.display="block";
 Foreststorypart.style.display="none";
 dragonstorypart.style.display="none";
 NxtBtn.style.display="none";
+talkmerchantafterforest.style.display="none";
 
 });
 
@@ -107,7 +109,7 @@ merchanttaskaccept.addEventListener("click",()=>{
 let TalkToWizard=document.getElementById("Talktowizard");
 let Wizdialoguebox=document.getElementById("WizDialogueBox");
 let ForestDialogues=[];
-
+let storystage="wizard";
 let i=0;
 TalkToWizard.addEventListener("click", ()=>{
   
@@ -137,8 +139,15 @@ NxtBtn.addEventListener("click", ()=>{
 }
 
 else{
+  if(storystage==="wizard"){
+    storystage="merchant";
+    AfterDarkForestArc();
+    return;
+  }
+
+  if(storystage==="merchant"){
  Foreststorypart.style.display="none";
-  villagepart.style.display="block";
+  villagepart.style.display = "block";
 i=0;
 index=0;
     //this was done to reset the prev dialogues and  make a new convo session.
@@ -147,10 +156,26 @@ index=0;
 dialogueBox.innerText="";
 MerchantTaskDecision.style.display="none";
 NxtBtn.style.display="none";
-
-}
+ talkmerchantafterforest.style.display = "none";
+}}
 });
 
 merchanttaskreject.addEventListener("click",()=>{
   dialogueBox.innerText="Guide:It's better you help him.";
 })
+let merchantafterforestdbox=document.getElementById("merchantafterforestdbox");
+function AfterDarkForestArc(params) {
+ 
+NxtBtn.style.display="block";
+//after dark forest part
+talkmerchantafterforest.style.display="block";
+ForestDialogues=[
+"Merchant:there you go!",
+`${playername}: here are the natural extracts`,
+"Merchant: I know you are from the  cathedral of the great Shindro Ochinawa. These natural extracts are for you health.",
+`${playername}: Thanks for the sword and these extracts I will now complete my duty`,
+"Merchant: Remember the faster you are the higher the chances of killing the dragon."
+]
+i=0;
+merchantafterforestdbox.innerText=ForestDialogues[i];
+};
