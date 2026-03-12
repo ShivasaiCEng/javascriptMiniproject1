@@ -77,6 +77,9 @@ let merchanttaskreject=document.getElementById("merchanttaskreject");
 
 TalkToMerchant.addEventListener("click",()=>{
 merchantd1.style.display="block";
+greeting.style.display="block";
+i=0;
+dialogueBox.innerText="";
 NxtBtn.style.display="block"; 
 })
 
@@ -135,7 +138,11 @@ NxtBtn.addEventListener("click", ()=>{
   NxtBtn.style.display="block";
   if(i < ForestDialogues.length - 1){
     i++;
-    Wizdialoguebox.innerText = ForestDialogues[i];
+   if(storystage === "wizard"){
+        Wizdialoguebox.innerText = ForestDialogues[i];
+    } else {
+        merchantafterforestdbox.innerText = ForestDialogues[i];
+    }
 }
 
 else{
@@ -148,15 +155,22 @@ else{
   if(storystage==="merchant"){
  Foreststorypart.style.display="none";
   villagepart.style.display = "block";
+  
 i=0;
 index=0;
     //this was done to reset the prev dialogues and  make a new convo session.
     ForestDialogues=[];
     Wizdialoguebox.innerText="";
 dialogueBox.innerText="";
-MerchantTaskDecision.style.display="none";
-NxtBtn.style.display="none";
+
+ merchantafterforestdbox.innerText = "";
+  greeting.innerText = "";
+
  talkmerchantafterforest.style.display = "none";
+ MerchantTaskDecision.style.display = "none";
+ merchantd1.style.display="none";
+ NxtBtn.style.display="none";
+merchantafterforestdbox.style.display = "none";
 }}
 });
 
@@ -164,9 +178,20 @@ merchanttaskreject.addEventListener("click",()=>{
   dialogueBox.innerText="Guide:It's better you help him.";
 })
 let merchantafterforestdbox=document.getElementById("merchantafterforestdbox");
+
+
 function AfterDarkForestArc(params) {
- 
+ Foreststorypart.style.display = "none";
+villagepart.style.display = "block";
 NxtBtn.style.display="block";
+merchantd1.style.display="none";
+dialogueBox.innerText="";
+greeting.style.display = "none";
+dialogueBox.style.display = "none";
+MerchantTaskDecision.style.display = "none";
+Wizdialoguebox.innerText="";
+merchantafterforestdbox.style.display="none";
+merchantafterforestdbox.innerText="";
 //after dark forest part
 talkmerchantafterforest.style.display="block";
 ForestDialogues=[
@@ -176,6 +201,12 @@ ForestDialogues=[
 `${playername}: Thanks for the sword and these extracts I will now complete my duty`,
 "Merchant: Remember the faster you are the higher the chances of killing the dragon."
 ]
-i=0;
-merchantafterforestdbox.innerText=ForestDialogues[i];
+  merchantafterforestdbox.style.display = "none";
 };
+
+talkmerchantafterforest.addEventListener("click",()=>{
+   i = 0;
+  merchantafterforestdbox.style.display = "block";
+  merchantafterforestdbox.innerText = ForestDialogues[i];
+  NxtBtn.style.display = "block";
+})
