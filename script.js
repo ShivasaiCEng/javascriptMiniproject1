@@ -229,25 +229,40 @@ const merchantAfterBox = document.getElementById("merchantafterforestdbox");
 let dialogues = [];
 let i = 0;
 let currentBox = null;
+let currentScene="";
 let playername = "";
+let merchantd1=document.getElementById("merchantd1");
+let forestCompleted = false;
+
+
+let talkAfterForest=document.getElementById("Talktomerchantafterforesttask");
+let talkMerchantBtn=document.getElementById("talktomerchant");
+talkAfterForest.style.display="none";
+
 
 function showScene(name){
   Object.values(scenes).forEach(s=>s.style.display="none");
   scenes[name].style.display="block";
 }
 
-function SubmitplayerName(){
-  let submit=document.getElementById("submitName");
-  submit.addEventListener("click",()=>{
- playername=document.getElementById("playername");
-  })
-}
 
-function startDialogue(list,box){
+let submit=document.getElementById("submitName");
+  submit.addEventListener("click",()=>{
+ playername=document.getElementById("playername").value;
+ startDialogue([
+    "Merchant: What do you want",
+    `${playername}: supplies!`,
+    "Merchant: Bring me natural extracts from the forest"
+  ], merchantBox,"merchant");
+  })
+
+
+function startDialogue(list,box,scene){
   dialogues=list;//making the list as global variable as other functions need it's access.
   i=0;
   currentBox=box;//making the list as global variable as other functions need it's access.
-box.innerText=dialogues[i];
+currentScene=scene;
+  box.innerText=dialogues[i];
 nextBtn.style.display="block";
 }
 
@@ -255,28 +270,47 @@ nextBtn.addEventListener("click",()=>{
   if(i<dialogues.length-1){
 i++;
 currentBox.innerText=dialogues[i];
-  } else{
+  } else{ // after the dialogues ends this part continues
     nextBtn.style.display="none";
+
+    if(currentScene==="merchant"){ //if the currentscene is merchant then it was the dialogues that ended
+      showScene("forest");}
+      else if(currentScene==="wizard"){
+        forestCompleted=true;
+
+    showScene("village");
+
+    wizBox.innerText="";
+    merchantBox.innerText="";
+merchantd1.style.display="none";
+document.getElementById("villageIntro").style.display="none";
+    talkMerchantBtn.style.display="none";
+    talkAfterForest.style.display="block";
+      }
+      else if(currentScene==="merchantAfterForest"){
+showScene("dragon");
+      }
+
   }
-})
+
+});
+  
 
 document.getElementById("talktomerchant").onclick = ()=>{
-  
-  startDialogue([
-    "Merchant: What do you want",
-    `${playername}: supplies!`,
-    "Merchant: Bring me natural extracts from the forest"
-  ], merchantBox);
-};
+   merchantd1.style.display = "block";};
 
-document.getElementById("Talktowizard").onclick = ()=>{
+const talkWizardBtn = document.getElementById("Talktowizard");
+
+talkWizardBtn.addEventListener("click", ()=>{
+
   startDialogue([
     "Wizard: Hey what do you want?",
     `${playername}: I need extracts`,
     "Wizard: Take this gem",
     "You obtained the extracts!"
-  ], wizBox);
-};
+  ], wizBox,"wizard");
+
+});
 
 document.getElementById("Talktomerchantafterforesttask").onclick = ()=>{
   startDialogue([
@@ -284,7 +318,7 @@ document.getElementById("Talktomerchantafterforesttask").onclick = ()=>{
     `${playername}: Here are the extracts`,
     "Merchant: Use them well",
     "Now go defeat the dragon!"
-  ], merchantAfterBox);
+  ], merchantAfterBox,"merchantAfterForest");
 };
 
 document.getElementById("Gotovillage").onclick = ()=> showScene("village");
