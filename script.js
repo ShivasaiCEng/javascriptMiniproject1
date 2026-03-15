@@ -214,6 +214,8 @@
 
 
 //Modified code
+
+//scenes
 const scenes={
   village: document.getElementById("village"),
   forest: document.getElementById("forest"),
@@ -222,21 +224,28 @@ const scenes={
 }
 
 const nextBtn = document.getElementById("nextbtn");
+
+//dialogue boxes access
 const wizBox = document.getElementById("WizDialogueBox");
 const merchantBox = document.getElementById("merchantDialogue");
 const merchantAfterBox = document.getElementById("merchantafterforestdbox");
 
+//variables initialization
 let dialogues = [];
 let i = 0;
 let currentBox = null;
 let currentScene="";
 let playername = "";
-let merchantd1=document.getElementById("merchantd1");
 let forestCompleted = false;
+let xp=0;
+let gold=0;
 
 
+let merchantd1=document.getElementById("merchantd1");
 let talkAfterForest=document.getElementById("Talktomerchantafterforesttask");
 let talkMerchantBtn=document.getElementById("talktomerchant");
+const xpDisplay = document.getElementById("xp");
+const golddisplay=document.getElementById("goldvalue");
 talkAfterForest.style.display="none";
 
 
@@ -244,6 +253,17 @@ function showScene(name){
   Object.values(scenes).forEach(s=>s.style.display="none");
   scenes[name].style.display="block";
 }
+
+function addgold(amount){
+gold+=amount;
+golddisplay.innerText=gold;
+}
+function addXP(amount){
+  xp += amount;
+  xpDisplay.innerText = xp;
+}
+
+
 
 
 let submit=document.getElementById("submitName");
@@ -277,7 +297,6 @@ currentBox.innerText=dialogues[i];
       showScene("forest");}
       else if(currentScene==="wizard"){
         forestCompleted=true;
-
     showScene("village");
 
     wizBox.innerText="";
@@ -288,16 +307,16 @@ document.getElementById("villageIntro").style.display="none";
     talkAfterForest.style.display="block";
       }
       else if(currentScene==="merchantAfterForest"){
+        addXP(150);
+        addgold(500);
 showScene("dragon");
       }
-
   }
-
 });
   
 
 document.getElementById("talktomerchant").onclick = ()=>{
-   merchantd1.style.display = "block";};
+merchantd1.style.display = "block";};
 
 const talkWizardBtn = document.getElementById("Talktowizard");
 
